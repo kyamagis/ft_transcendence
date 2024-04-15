@@ -1,0 +1,28 @@
+{
+  "name": "transcendence-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "docker compose -p transcendence up --build"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": "npx prettier --write",
+    "backend/*": "cd backend && npm run lint",
+    "frontend/*": "cd frontend && npm run lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express-session": "^1.17.7",
+    "@types/passport-jwt": "^3.0.9",
+    "prettier": "^3.0.2"
+  },
+  "dependencies": {
+    "@nestjs/jwt": "^10.1.1",
+    "@tanstack/react-query": "^4.35.0",
+    "express-session": "^1.17.3",
+    "passport-jwt": "^4.0.1"
+  }
+}

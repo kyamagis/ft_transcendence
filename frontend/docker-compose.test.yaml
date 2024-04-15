@@ -1,0 +1,18 @@
+version: '3'
+services:
+  frontend:
+    container_name: front_test
+    build:
+      context: .
+      dockerfile: ./docker/node.Dockerfile
+      target: test
+    env_file:
+      - ./.env/.env.test
+    ports:
+      - '5000:5000'
+    networks:
+      - transcendence-network
+
+networks:
+  transcendence-network:
+    driver: bridge

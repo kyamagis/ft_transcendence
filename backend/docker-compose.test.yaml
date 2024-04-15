@@ -1,0 +1,33 @@
+version: '3'
+services:
+  api:
+    container_name: api_test
+    build:
+      context: .
+      dockerfile: ./docker/node.Dockerfile
+      target: test
+    depends_on:
+      - db
+    env_file:
+      - ./.env/.env.test
+    networks:
+      - transcendence-network
+
+  db:
+    container_name: db_test
+    build:
+      context: .
+      dockerfile: ./docker/db.Dockerfile
+    env_file:
+      - ./.env/.env.test
+    volumes:
+      - db-test:/var/lib/postgresql/data
+    networks:
+      - transcendence-network
+
+volumes:
+  db-test:
+
+networks:
+  transcendence-network:
+    driver: bridge

@@ -1,0 +1,23 @@
+
+## Babelの活用例
+
+### 1. JavaScriptの新しい機能の利用
+
+最も一般的なBabelの使用例は、新しいJavaScriptの機能（ECMAScript 2015+）を利用したコードを、旧バージョンのJavaScriptにトランスパイルすることです。これにより、最新のJavaScript機能を使用しつつ、古いブラウザでもコードが正常に動作するようにすることが可能です。
+
+### 2. JSXのトランスパイル
+
+Babelは、Reactなどのライブラリで利用されるJSXというJavaScriptのシンタックス拡張を通常のJavaScriptにトランスパイルします。JSXはHTMLと似た形式を持つため、コンポーネントベースの開発において直感的にUIを記述することができます。しかし、ブラウザはJSXを直接理解することはできないため、Babelを使用して通常のJavaScriptにトランスパイルする必要があります。
+
+### 3. TypeScriptのトランスパイル
+
+BabelはTypeScriptのコードをJavaScriptにトランスパイルすることも可能です。TypeScriptはJavaScriptのスーパーセットで、静的な型システムとクラスベースのオブジェクト指向を提供します。しかし、ブラウザはTypeScriptを直接理解できないため、JavaScriptにトランスパイルする必要があります([tscとの関係に注意](tscとBabel.md))。
+
+---
+
+## BabelとWebpackの関係
+
+WebpackはJavaScriptのモジュールバンドラーで、開発者が複数のJavaScriptファイルを一つのバンドルファイルにまとめることができます。これにより、開発者はモジュール化された開発を行いつつ、ブラウザが理解できる形式でコードを出力できます。
+
+BabelとWebpackは一緒に使用されることがよくあります。BabelがJavaScriptの新しい機能やJSX、TypeScriptをブラウザが理解できるJavaScriptにトランスパイルする一方、Webpackはこれらのトランスパイルされたファイルを一つのバンドルにまとめます。さらに、WebpackはBabelを"loader"として統合することで、開発者はモジュールバンドリングとトランスパイルを同時に行うことができます。
+

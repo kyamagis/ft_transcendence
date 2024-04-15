@@ -1,0 +1,18 @@
+version: '3'
+services:
+  frontend:
+    container_name: front_prod
+    build:
+      context: .
+      dockerfile: ./docker/node.Dockerfile
+      target: prod
+    env_file:
+      - ./.env/.env.prod
+    ports:
+      - '5000:5000'
+    networks:
+      - transcendence-network
+
+networks:
+  transcendence-network:
+    driver: bridge

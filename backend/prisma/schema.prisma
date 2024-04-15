@@ -1,0 +1,177 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int                @id @default(autoincrement())
+  username           String?            @unique
+  avatar             Bytes?
+  ladderpoints       Int                @default(0)
+  twoFASetting       Boolean            @default(false)
+  twoFASecret        String?
+  messages           Message[]
+  achievements       Achievements[]
+  matchrecords       MatchRecord[]
+  FtAccount          FtAccount?
+  GoogleAccount      GoogleAccount?
+  Session            Session[]
+  UserRoleInChat     UserRoleInChat[]
+  initiatedRelations UserRelation[]     @relation("UserToRelation")
+  receivedRelations  UserRelation[]     @relation("RelatedUserToRelation")
+  UserMutedInChat    UserMutedInChat[]
+  UserBannedInChat   UserBannedInChat[]
+}
+
+enum MatchType {
+  LadderMatch
+  InvitationalMatch
+}
+
+//
+// 棄権したらスコアを-1
+model MatchRecord {
+  recordid      Int       @id @default(autoincrement())
+  myid          Int
+  user          User?     @relation(fields: [myid], references: [id])
+  matchtype     MatchType
+  opponentid    Int
+  myscore       Int
+  opponentscore Int
+  playedat      DateTime  @default(now())
+}
+
+model Session {
+  sid       String   @id @map("sid")
+  sess      Json
+  expire    DateTime
+  needTwoFA Boolean  @default(false)
+  userId    Int?     @map("user_id")
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model FtAccount {
+  id     Int    @id @default(autoincrement())
+  ftId   String @unique
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([ftId, userId])
+}
+
+model GoogleAccount {
+  id     Int    @id @default(autoincrement())
+  email  String @unique
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([email, userId])
+}
+
+model Message {
+  id                    Int      @id @default(autoincrement())
+  content               String
+  timestamp             DateTime @default(now())
+  userId                Int
+  chatRoomId            Int
+  user                  User     @relation(fields: [userId], references: [id])
+  chatRoom              ChatRoom @relation(fields: [chatRoomId], references: [id])
+  gameParametersJson    String?
+}
+
+// model GameParameter {
+//   id            Int      @id @default(autoincrement())
+//   messageId     Int
+//   text          String
+//   maxLevel      Int
+//   gameParameter Int
+//   message       Message @relation(fields: [messageId], references: [id])
+// }
+
+model Achievements {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  name     String
+  progress Int
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+enum RelationType {
+  FRIEND
+  BLOCKING
+}
+
+model UserRelation {
+  id            Int          @id @default(autoincrement())
+  userId        Int
+  relatedUserId Int
+  relationType  RelationType
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
+  user          User         @relation("UserToRelation", fields: [userId], references: [id])
+  relatedUser   User         @relation("RelatedUserToRelation", fields: [relatedUserId], references: [id])
+
+  @@unique([userId, relatedUserId, relationType])
+}
+
+enum RoomType {
+  PRIVATE
+  PUBLIC
+  PASSWORD_PROTECTED
+  DM
+}
+
+model ChatRoom {
+  id           Int                @id @default(autoincrement())
+  roomName     String             @unique
+  roomPassword String?
+  roomType     RoomType
+  messages     Message[]
+  userRoles    UserRoleInChat[]
+  userMuted    UserMutedInChat[]
+  userBanned   UserBannedInChat[]
+}
+
+model UserRoleInChat {
+  id         Int      @id @default(autoincrement())
+  chatRoomId Int
+  userId     Int
+  userRole   UserRole
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([chatRoomId, userId, userRole])
+}
+
+model UserMutedInChat {
+  chatRoomId Int
+  userId     Int
+  mutedUntil DateTime
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@id([chatRoomId, userId])
+}
+
+model UserBannedInChat {
+  chatRoomId Int
+  userId     Int
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@id([chatRoomId, userId])
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  USER
+}

@@ -1,0 +1,48 @@
+version: '3'
+services:
+  api:
+    container_name: api_prod
+    build:
+      context: ./backend
+      dockerfile: ./docker/node.Dockerfile
+      target: prod
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env/.env.prod
+    ports:
+      - '3000:3000'
+    networks:
+      - transcendence-network
+
+  db:
+    container_name: db_prod
+    build:
+      context: ./backend
+      dockerfile: ./docker/db.Dockerfile
+    env_file:
+      - ./backend/.env/.env.prod
+    volumes:
+      - db-prod:/var/lib/postgresql/data
+    networks:
+      - transcendence-network
+
+  frontend:
+    container_name: front_prod
+    build:
+      context: ./frontend
+      dockerfile: ./docker/node.Dockerfile
+      target: prod
+    env_file:
+      - ./frontend/.env/.env.prod
+    ports:
+      - '5000:5000'
+    networks:
+      - transcendence-network
+
+volumes:
+  db-prod:
+
+networks:
+  transcendence-network:
+    driver: bridge

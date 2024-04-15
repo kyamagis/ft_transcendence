@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ファイル名はなんでも良い 今回はtailwindだけをスタイルとして利用する予定
+`@tailwind base;`, `@tailwind components;`, `@tailwind utilities;` これらはTailwind CSSのディレクティブですが、JavaScriptやTypeScriptのデコレーターとは異なります。これらは、CSSプリプロセッサに対して特定の命令を発行しているのです。
+
+- `@tailwind base;`: これはTailwindが提供する基本的なスタイリング（normalize.cssを含む場合もある）を挿入します。
+- `@tailwind components;`: これは、Tailwindのコンポーネントクラス（または自分で定義したコンポーネントクラス）を挿入します。
+- `@tailwind utilities;`: これは、Tailwindが提供するユーティリティクラスを挿入します。
+
+これらのディレクティブは、Tailwind CSSのビルドプロセス中に解釈され、実際のCSSルールに変換されます。
+
+例えば、`@tailwind base;`が解釈されると、一連の基本的なスタイリングがCSSファイルに挿入されます。同様に、`@tailwind utilities;`が解釈されると、多数のユーティリティクラス（`bg-red-500`, `text-center`など）がCSSファイルに挿入されます。
+
+これらはCSSファイル内で特殊なディレクティブとして扱われ、WebpackなどのバンドラーがTailwind CSSプラグインとともにこれを解釈し、最終的なCSSファイルを生成します。 */
+
+/* 背景画像用 */
+.bg_image {
+  background-image: url('../../public/背景２.png');
+}
+
+/* Pong */
+
+.pongbackground {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.ponglogo {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: auto;
+}
+
+.pongvscpu {
+  color: white;
+  font-size: 3vh;
+  font-family: 'Century Gothic';
+
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 40%;
+}
+
+.pongladdermatch {
+  color: white;
+  font-size: 3vh;
+  font-family: 'Century Gothic';
+
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.optionmode {
+  color: white;
+  font-size: 3vh;
+  font-family: 'Century Gothic';
+
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 60%;
+}
+
+.optionmodal {
+  background-color: black;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.ponglh {
+  background-color: black;
+  margin: 1vh;
+}
+
+@media (max-height: 900px) {
+  .ponglogo {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+  }
+
+  .pongvscpu {
+    color: white;
+    font-size: 20px;
+    font-family: 'Century Gothic';
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 200px;
+  }
+
+  .pongladdermatch {
+    color: white;
+    font-size: 20px;
+    font-family: 'Century Gothic';
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 280px;
+  }
+
+  .optionmode {
+    color: white;
+    font-size: 20px;
+    font-family: 'Century Gothic';
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 360px;
+  }
+
+  .optionmodal {
+    background-color: black;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 300px;
+  }
+
+  .ponglh {
+    background-color: black; /* 背景色指定 */
+    margin: 5px;
+  }
+}
+
+.starbuttun {
+  background-color: black;
+}
+
+.gameparametername {
+  color: white;
+  font-size: 20px;
+  font-family: 'Century Gothic';
+  background-color: black; /* 背景色指定 */
+  text-align: center; /* 中央寄せ */
+}
+
+.gameparameter {
+  color: white;
+  padding: 10px;
+  background-color: black; /* 背景色指定 */
+  text-align: center; /* 中央寄せ */
+}
+
+.pongball {
+  fill: white;
+}
+
+.pongcenterline {
+  stroke: white;
+  stroke-width: 5;
+  stroke-dasharray: 5 5;
+}
+
+.pongscore {
+  fill: white;
+  font-size: 24px;
+  stroke-width: 5;
+}
+
+.pongfont {
+  font-family: 'Century Gothic';
+}

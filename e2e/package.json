@@ -1,0 +1,25 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "(cd ../backend && npm run start:dev &) && (cd ../frontend && npm run start:dev &)",
+    "start:prod": "(cd ../backend && npm run start:prod &) && (cd ../frontend && npm run start:prod &)",
+    "down": "cd ../backend && npm run down; cd ../frontend && npm run down",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.3.0",
+    "next": "^13.5.4",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.4.1",
+    "dotenv": "^16.3.1",
+    "prisma": "^5.4.1"
+  }
+}
