@@ -1,6 +1,15 @@
 re# ft_transcendence
+
+![demo](https://github.com/kyamagis/ft_transcendence/blob/master/Pong.gif)
+
+## 起動方法
+- docker compose up -d
+
+## URL
+- http://localhost:5000/
+
 ## docker
-### 起動方法について
+### devの立ち上げについて
 - root階層にて`npm run start:dev` | `npm run start:prod` （ログが混ざるので注意）
 - ./frontend、 ./backend それぞれで`npm run start:dev` | `npm run start:prod` で立ち上げることも可能
 
