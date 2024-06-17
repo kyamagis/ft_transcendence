@@ -2,6 +2,9 @@ re# ft_transcendence
 
 ![demo](https://github.com/kyamagis/ft_transcendence/blob/master/Pong.gif)
 
+## 注意事項
+- 起動するためには ./backend/.env/.env.prod の"change"の部分を書き換える必要がある
+
 ## 起動方法
 - docker compose up -d
 
